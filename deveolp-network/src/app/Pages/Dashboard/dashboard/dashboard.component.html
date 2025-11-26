@@ -1,0 +1,238 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Enhanced Header -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold text-gray-900 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          <p class="text-gray-600 mt-2 text-lg">Product Catalog Overview & Analytics</p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input 
+              type="text" 
+              placeholder="Search products..." 
+              class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-64 transition-all duration-200"
+            >
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              🔍
+            </div>
+          </div>
+          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium flex items-center space-x-2">
+            <span>+</span>
+            <span>Add Product</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Total Products -->
+      <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Total Products</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ totalProducts() }}</p>
+            <p class="text-xs text-green-600 font-medium mt-1 flex items-center">
+              <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
+              +12% from last month
+            </p>
+          </div>
+          <div class="p-3 bg-blue-50 rounded-xl">
+            <div class="text-2xl text-blue-600">📦</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Average Price -->
+      <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Average Price</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">${{ averagePrice() }}</p>
+            <p class="text-xs text-green-600 font-medium mt-1 flex items-center">
+              <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
+              +5.2% increase
+            </p>
+          </div>
+          <div class="p-3 bg-green-50 rounded-xl">
+            <div class="text-2xl text-green-600">💰</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Categories -->
+      <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Categories</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ categoriesCount() }}</p>
+            <p class="text-xs text-blue-600 font-medium mt-1">Active product lines</p>
+          </div>
+          <div class="p-3 bg-purple-50 rounded-xl">
+            <div class="text-2xl text-purple-600">🏷️</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highest Rated -->
+      <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Highest Rated</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ highestRating() }}/5</p>
+            <p class="text-xs text-yellow-600 font-medium mt-1 flex items-center">
+              <span class="inline-block w-2 h-2 bg-yellow-500 rounded-full mr-1"></span>
+              Customer favorite
+            </p>
+          </div>
+          <div class="p-3 bg-yellow-50 rounded-xl">
+            <div class="text-2xl text-yellow-600">⭐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mb-8">
+      <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <button class="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 group">
+            <div class="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+              <div class="text-blue-600">➕</div>
+            </div>
+            <span class="text-sm font-medium text-gray-700">Add Product</span>
+          </button>
+          <button class="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all duration-200 group">
+            <div class="p-2 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+              <div class="text-green-600">📊</div>
+            </div>
+            <span class="text-sm font-medium text-gray-700">View Reports</span>
+          </button>
+          <button class="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 group">
+            <div class="p-2 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+              <div class="text-purple-600">🏷️</div>
+            </div>
+            <span class="text-sm font-medium text-gray-700">Manage Categories</span>
+          </button>
+          <button class="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition-all duration-200 group">
+            <div class="p-2 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors">
+              <div class="text-orange-600">🔄</div>
+            </div>
+            <span class="text-sm font-medium text-gray-700">Bulk Update</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Recent Products -->
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-semibold text-gray-900">Recent Products</h2>
+          <div class="flex space-x-2">
+            <button class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              Sort: Newest
+            </button>
+            <button class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              Filter
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        @if (loading()) {
+          <div class="flex justify-center items-center py-12">
+            <div class="flex flex-col items-center space-y-4">
+              <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+              <p class="text-gray-600">Loading products...</p>
+            </div>
+          </div>
+        } @else {
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @for (product of recentProducts(); track product.id) {
+              <div class="group border border-gray-200 rounded-xl p-5 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white cursor-pointer">
+                
+                <div class="flex flex-col space-y-4">
+                  <!-- Product Image -->
+                  <div 
+                    (click)="openUpdateModal(product.id, $event)"
+                    class="relative overflow-hidden rounded-lg bg-gray-100 aspect-square">
+                    <img 
+                      [src]="product.image" 
+                      [alt]="product.title" 
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    >
+                    <div class="absolute top-3 right-3">
+                      <span class="bg-white/90 backdrop-blur-sm text-xs font-medium px-2 py-1 rounded-full text-gray-700">
+                        ${{ product.price }}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <!-- Product Info -->
+                  <div class="flex-1 space-y-2">
+                    <div>
+                      <p class="text-sm text-gray-500 uppercase tracking-wide font-medium">{{ product.category }}</p>
+                      <h3 class="font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                        {{ product.title }}
+                      </h3>
+                    </div>
+                    
+                    <!-- Rating -->
+                    <div class="flex items-center space-x-1">
+                      <div class="flex text-yellow-400">
+                        <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                      </div>
+                      <span class="text-xs text-gray-500">(4.2)</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Action Buttons -->
+                  <div class="flex space-x-2 pt-2">
+                    <button 
+                      [routerLink]="['/products', product.id]" 
+                      class="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium flex items-center justify-center space-x-1"
+                    >
+                      <span>👁️</span>
+                      <span>View</span>
+                    </button>
+                    <button 
+                      (click)="openUpdateModal(product.id, $event)"
+                      class="flex-1 bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium flex items-center justify-center space-x-1"
+                    >
+                      <span>✏️</span>
+                      <span>Edit</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+          
+          <!-- View All Button -->
+          <div class="mt-8 text-center">
+            <button routerLink="/products" class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium inline-flex items-center space-x-2">
+              <span>View All Products</span>
+              <span>→</span>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Product Modal -->
+@if (showUpdateModal() && selectedProductId()) {
+  <app-update-product 
+    [productId]="selectedProductId()!" 
+    (closeModal)="closeUpdateModal()" 
+    (productUpdated)="onProductUpdated($event)">
+  </app-update-product>
+}

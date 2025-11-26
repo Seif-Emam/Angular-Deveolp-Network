@@ -1,0 +1,240 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 p-6 flex justify-center items-start">
+    <!-- Loading State -->
+    @if (loading) {
+      <div class="flex flex-col items-center justify-center py-20">
+        <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mb-4"></div>
+        <div class="text-gray-600 text-lg font-medium">Loading product details...</div>
+        <p class="text-gray-400 text-sm mt-2">Please wait while we fetch the product information</p>
+      </div>
+    }
+    
+    <!-- Error State -->
+    @if (error) {
+      <div class="max-w-2xl w-full">
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
+          <div class="text-6xl mb-4">😔</div>
+          <h2 class="text-2xl font-bold text-red-800 mb-2">Unable to Load Product</h2>
+          <p class="text-red-600 mb-6">{{ error }}</p>
+          <button 
+            (click)="reloadPage()"
+            class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium inline-flex items-center space-x-2"
+          >
+            <span>🔄</span>
+            <span>Try Again</span>
+          </button>
+        </div>
+      </div>
+    }
+  
+    <!-- Product Details -->
+    @if (product) {
+      <div class="max-w-6xl w-full">
+        <!-- Breadcrumb -->
+        <nav class="mb-8">
+          <ol class="flex items-center space-x-2 text-sm text-gray-500">
+            <li>
+              <a href="/products" class="hover:text-blue-600 transition-colors">Products</a>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="text-gray-300">›</span>
+              <span class="text-gray-400">{{ product?.category }}</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="text-gray-300">›</span>
+              <span class="text-gray-900 font-medium truncate max-w-32">{{ product?.title }}</span>
+            </li>
+          </ol>
+        </nav>
+  
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+            <!-- Product Image Gallery -->
+            <div class="space-y-4">
+              <!-- Main Image -->
+              <div class="relative bg-gray-100 rounded-xl overflow-hidden aspect-square">
+                <img 
+                  [src]="product?.image" 
+                  [alt]="product?.title" 
+                  class="w-full h-full object-contain p-8 hover:scale-105 transition-transform duration-300"
+                />
+                <!-- Badge -->
+                <div class="absolute top-4 left-4">
+                  <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    In Stock
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Thumbnail Gallery -->
+              <div class="grid grid-cols-4 gap-3">
+                <div class="aspect-square bg-gray-100 rounded-lg border-2 border-blue-500 overflow-hidden">
+                  <img [src]="product?.image" [alt]="product?.title" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-square bg-gray-100 rounded-lg border border-gray-200 overflow-hidden opacity-60">
+                  <div class="w-full h-full flex items-center justify-center text-gray-400">
+                    <span class="text-2xl">+</span>
+                  </div>
+                </div>
+                <div class="aspect-square bg-gray-100 rounded-lg border border-gray-200 overflow-hidden opacity-60">
+                  <div class="w-full h-full flex items-center justify-center text-gray-400">
+                    <span class="text-2xl">+</span>
+                  </div>
+                </div>
+                <div class="aspect-square bg-gray-100 rounded-lg border border-gray-200 overflow-hidden opacity-60">
+                  <div class="w-full h-full flex items-center justify-center text-gray-400">
+                    <span class="text-2xl">+</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Product Information -->
+            <div class="flex flex-col justify-between">
+              <div class="space-y-6">
+                <!-- Header -->
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                      {{ product?.category }}
+                    </span>
+                    <button class="text-gray-400 hover:text-red-500 transition-colors duration-200">
+                      <span class="text-2xl">❤️</span>
+                    </button>
+                  </div>
+                  <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                    {{ product?.title }}
+                  </h1>
+                  
+                  <!-- Rating -->
+                  <div class="flex items-center space-x-4 mb-4">
+                    <div class="flex items-center space-x-1">
+                      <div class="flex text-yellow-400">
+                        @for (star of getStars(product.rating?.rate || 0); track star) {
+                          <span class="text-xl">⭐</span>
+                        }
+                      </div>
+                      <span class="text-lg font-semibold text-gray-900 ml-2">{{ product?.rating?.rate }}</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <span class="text-gray-600">{{ product?.rating?.count }} reviews</span>
+                  </div>
+                </div>
+  
+                <!-- Price -->
+                <div class="flex items-baseline space-x-3">
+                  <span class="text-4xl font-bold text-gray-900">${{ product?.price }}</span>
+                  <span class="text-lg text-green-600 font-semibold">In Stock</span>
+                </div>
+  
+                <!-- Description -->
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+                  <p class="text-gray-600 leading-relaxed text-lg">{{ product?.description }}</p>
+                </div>
+  
+                <!-- Features -->
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <span class="text-green-600">✓</span>
+                    </div>
+                    <span class="text-gray-700">Free Shipping</span>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <span class="text-blue-600">↻</span>
+                    </div>
+                    <span class="text-gray-700">30-Day Return</span>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <span class="text-purple-600">🛡️</span>
+                    </div>
+                    <span class="text-gray-700">2-Year Warranty</span>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                      <span class="text-orange-600">📞</span>
+                    </div>
+                    <span class="text-gray-700">24/7 Support</span>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Action Buttons -->
+              <div class="space-y-4 pt-6 border-t border-gray-200">
+                <div class="flex space-x-4">
+               
+                  <button 
+                  (click)="openUpdateModal(product.id, $event)"
+                  class="flex-1 bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium flex items-center justify-center space-x-1"
+                >
+                    <span class="text-xl">✏️</span>
+                    <span>Edit Product</span>
+                  </button>
+                </div>
+                
+                <button 
+                  class="w-full border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 font-medium flex items-center justify-center space-x-2"
+                >
+                  <span>🔄</span>
+                  <span>Compare with Similar Items</span>
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Additional Information Tabs -->
+          <div class="border-t border-gray-200">
+            <div class="px-8">
+              <div class="flex space-x-8 border-b border-gray-200">
+                <button class="py-4 px-2 border-b-2 border-blue-600 text-blue-600 font-semibold">
+                  Product Details
+                </button>
+                <button class="py-4 px-2 text-gray-500 hover:text-gray-700 font-medium">
+                  Specifications
+                </button>
+                <button class="py-4 px-2 text-gray-500 hover:text-gray-700 font-medium">
+                  Reviews ({{ product?.rating?.count }})
+                </button>
+                <button class="py-4 px-2 text-gray-500 hover:text-gray-700 font-medium">
+                  Shipping & Returns
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-8 bg-gray-50">
+              <div class="max-w-3xl">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">About this item</h3>
+                <div class="prose prose-lg text-gray-600">
+                  <p>{{ product?.description }}</p>
+                  <ul class="mt-4 space-y-2">
+                    <li class="flex items-start space-x-3">
+                      <span class="text-green-500 mt-1">✓</span>
+                      <span>High-quality materials and craftsmanship</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                      <span class="text-green-500 mt-1">✓</span>
+                      <span>Designed for durability and long-term use</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                      <span class="text-green-500 mt-1">✓</span>
+                      <span>Customer satisfaction guaranteed</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <!-- Update Product Modal -->
+@if (showUpdateModal() && selectedProductId()) {
+  <app-update-product 
+    [productId]="selectedProductId()!" 
+    (closeModal)="closeUpdateModal()" 
+    (productUpdated)="onProductUpdated($event)">
+  </app-update-product>
+}
