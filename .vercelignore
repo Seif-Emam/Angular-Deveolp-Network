@@ -1,8 +1,5 @@
-# Dependencies
+# Dependencies (installed during build)
 node_modules
-
-# Source files (not needed in production)
-src
 
 # Test files
 *.spec.ts
@@ -16,7 +13,3 @@ karma.conf.js
 # Git
 .git
 .gitignore
-
-# Build artifacts that are regenerated
-dist/**/3rdpartylicenses.txt
-
