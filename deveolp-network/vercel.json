@@ -1,14 +1,7 @@
 {
-    "version": 3,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "dist/deveolp-network"
-        }
-      }
-    ],
+    "version": 2,
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist/your-project-name/browser",
     "routes": [
       {
         "src": "/(.*)",
@@ -16,4 +9,3 @@
       }
     ]
   }
-  
