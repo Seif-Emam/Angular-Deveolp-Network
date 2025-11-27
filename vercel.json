@@ -1,8 +1,22 @@
 {
-  "rewrites": [
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist/deveolp-network/browser",
+  "functions": {
+    "api/server.mjs": {
+      "runtime": "@vercel/node@3.0.0",
+      "maxDuration": 30,
+      "includeFiles": "dist/deveolp-network/server/**"
+    }
+  },
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/server.mjs"
     }
   ]
 }
